@@ -11,6 +11,7 @@ input = Path(sys.argv[1])
 with open(input,"r") as f:
     lines = f.readlines()
 ref_list_dict = []
+coco_ref = {"images": [], "annotations": []}
 pred_list_dict = []
 
 for id,line in enumerate(lines):
@@ -20,13 +21,21 @@ for id,line in enumerate(lines):
     pred_list_dict.append({"image_id": id, "caption": pred})
     for i in range(len(refs)):
      ref_list_dict.append({"image_id": id, "caption": refs[i]})
+     coco_ref['annotations'].append({"image_id": id, "id": id,"caption": refs[i]})
+     coco_ref['images'].append({"license": 3, "url": "http://dummy", "file_name": "dummy.jpg", "id": id, "width": 640, "date_captured": "2013-11-14 11:18:45", "height": 360})
 
 
 with open(Path("results", input.stem+"_refs.json"),"w") as f:
     json.dump(ref_list_dict,fp=f)
 
+with open(Path("results", "refs.json"),"w") as f:
+    json.dump(coco_ref,fp=f)
+
+
 with open(Path("results", input.stem+"_pred.json"),"w") as f:
     json.dump(pred_list_dict,fp=f)
+
+
 
 # from pydataformat.loadData import LoadData
 # import pdb
