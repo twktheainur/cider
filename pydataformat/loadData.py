@@ -10,13 +10,11 @@ import os
 from collections import defaultdict
 
 class LoadData():
-    def __init__(self, path):
-        self.pathToData = path
-
+    def __init__(self):
+        pass
     def readJson(self, refname, candname):
-
-        path_to_ref_file = os.path.join(self.pathToData, refname)
-        path_to_cand_file = os.path.join(self.pathToData, candname)
+        path_to_ref_file = os.path.join(refname)
+        path_to_cand_file = os.path.join(candname)
 
         ref_list = json.loads(open(path_to_ref_file, 'r').read())
         cand_list = json.loads(open(path_to_cand_file, 'r').read())
